@@ -1,9 +1,8 @@
 import kotlin.math.abs
 
-fun part1(input: List<String>): Int {
+fun getLeftAndRight(input: List<String>): Pair<List<Int>, List<Int>> {
     val left = mutableListOf<Int>()
     val right = mutableListOf<Int>()
-    val distances = mutableListOf<Int>()
 
     input.forEach {
         val pairRegex = "(\\d+)\\s+(\\d+)".toRegex()
@@ -11,8 +10,16 @@ fun part1(input: List<String>): Int {
         left.add(matches.groupValues[1].toInt())
         right.add(matches.groupValues[2].toInt())
     }
-    left.sort()
-    right.sort()
+
+    return Pair(left, right)
+}
+
+fun part1(input: List<String>): Int {
+    val distances = mutableListOf<Int>()
+    var (left, right) = getLeftAndRight(input)
+
+    left = left.sorted()
+    right = right.sorted()
 
     left.forEachIndexed { index, _ -> distances.add(abs(right[index] - left[index])) }
 
