@@ -27,7 +27,13 @@ fun part1(input: List<String>): Int {
 }
 
 fun part2(input: List<String>): Int {
-    return input.size
+    val (left, right) = getLeftAndRight(input)
+
+    val ret = left.map { lft ->
+        lft * right.count { it == lft }
+    }
+
+    return ret.sum()
 }
 
 fun main() {
