@@ -16,12 +16,12 @@ fun getLeftAndRight(input: List<String>): Pair<List<Int>, List<Int>> {
 
 fun part1(input: List<String>): Int {
     val distances = mutableListOf<Int>()
-    var (left, right) = getLeftAndRight(input)
+    val (left, right) = getLeftAndRight(input)
 
-    left = left.sorted()
-    right = right.sorted()
+    val leftSorted = left.sorted()
+    val rightSorted = right.sorted()
 
-    left.forEachIndexed { index, _ -> distances.add(abs(right[index] - left[index])) }
+    leftSorted.forEachIndexed { index, _ -> distances.add(abs(rightSorted[index] - leftSorted[index])) }
 
     return distances.sum()
 }
@@ -42,12 +42,12 @@ fun main() {
 
     // Or read a large test input from the `src/Day01_test.txt` file:
     val testInput = readInput("inputs/Day01_test")
-    val expectedOutput = 31
-    val actualOutput = part2(testInput)
+    val expectedOutput = 11
+    val actualOutput = part1(testInput)
     check(actualOutput == expectedOutput) { "Expected $expectedOutput but received $actualOutput" }
 
     // Read the input from the `src/Day01.txt` file.
     val input = readInput("inputs/Day01")
-//    part1(input).println()
-    part2(input).println()
+    part1(input).println()
+//    part2(input).println()
 }
