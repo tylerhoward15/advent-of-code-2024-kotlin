@@ -12,7 +12,7 @@ fun main() {
 
     // Or read a large test input from the `src/Day01_test.txt` file:
     val testInput = readInput("inputs/Day01_test")
-    val expectedOutput = 1
+    val expectedOutput = 11
     val actualOutput = part1(testInput)
     check(actualOutput == expectedOutput) { "Expected $expectedOutput but received $actualOutput" }
 
