@@ -40,14 +40,17 @@ fun main() {
     // Test if implementation meets criteria from the description, like:
     //    check(part1(listOf("test_input")) == 1)
 
-    // Or read a large test input from the `src/Day01_test.txt` file:
-    val testInput = readInput("inputs/Day02_test")
-    val expectedOutput = 2
-    val actualOutput = part1(testInput)
-    check(actualOutput == expectedOutput) { "Expected $expectedOutput but received $actualOutput" }
 
-    // Read the input from the `src/Day01.txt` file.
+    val testInput = readInput("inputs/Day02_test")
     val input = readInput("inputs/Day02")
+
+    val expectedOutputPart1 = 2
+    val actualOutputPart1 = part1(testInput)
+    check(actualOutputPart1 == expectedOutputPart1) { "Expected $expectedOutputPart1 but received $actualOutputPart1" }
     part1(input).println()
-//    part2(input).println()
+
+    val expectedOutputPart2 = 4
+    val actualOutputPart2 = part2(testInput)
+    check(actualOutputPart2 == expectedOutputPart2) { "Expected $expectedOutputPart2 but received $actualOutputPart2" }
+    part2(input).println()
 }
