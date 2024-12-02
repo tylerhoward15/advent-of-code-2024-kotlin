@@ -26,9 +26,13 @@ fun main() {
         }
     }
 
+    fun stringToLevels(string: String): List<Int> {
+        return string.split(" ").map { it.toInt() }
+    }
+
     fun part1(input: List<String>): Int {
-        return input.count { it ->
-            val report = Report(it.split(" ").map { it.toInt() })
+        return input.count {
+            val report = Report(stringToLevels(it))
             report.isSafe()
         }
     }
