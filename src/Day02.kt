@@ -27,13 +27,14 @@ fun main() {
     }
 
     fun part1(input: List<String>): Int {
-        return input.count {
+        return input.count { it ->
             val report = Report(it.split(" ").map { it.toInt() })
             report.isSafe()
         }
     }
 
     fun part2(input: List<String>): Int {
+
         return -1
     }
 
