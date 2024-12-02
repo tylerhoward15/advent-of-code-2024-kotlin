@@ -41,8 +41,9 @@ fun main() {
     //    check(part1(listOf("test_input")) == 1)
 
 
-    val testInput = readInput("inputs/Day02_test")
-    val input = readInput("inputs/Day02")
+    val dayNumber = "02"
+    val testInput = readInput("inputs/Day${dayNumber}_test")
+    val input = readInput("inputs/Day${dayNumber}")
 
     val expectedOutputPart1 = 2
     val actualOutputPart1 = part1(testInput)
