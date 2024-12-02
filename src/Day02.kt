@@ -4,27 +4,25 @@ fun main() {
 
     data class Report(val levels: List<Int>) {
         fun isSafe(): Boolean {
-            val decreases = levels.indices.all {
-                if (it < levels.size - 1) {
-                    levels[it] > levels[it + 1]
-                } else true
-            }
-            val increases = levels.indices.all {
-                if (it < levels.size - 1) {
-                    levels[it] < levels[it + 1]
-                } else true
+            var decreases = true
+            var increases = true
+            var gradual = true
+
+            var i = 0
+            while (i < levels.size - 1) {
+                val curr = levels[i]
+                val next = levels[i + 1]
+
+                if (curr < next) decreases = false
+                if (curr > next) increases = false
+                if (abs(curr - next) !in 1..3) gradual = false
+
+                if (!((decreases || increases) && gradual)) return false
+
+                i++
             }
 
-            val gradual = levels.indices.all {
-                if (it < levels.size - 1) {
-                    val diff = abs(levels[it] - levels[it+1])
-                    diff in 1..3
-                } else true
-            }
-
-            val ret = (decreases || increases) && gradual
-
-            return ret
+            return true
         }
     }
 
