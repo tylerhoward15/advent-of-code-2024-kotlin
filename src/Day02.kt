@@ -1,6 +1,38 @@
+import kotlin.math.abs
+
 fun main() {
+
+    data class Report(val levels: List<Int>) {
+        fun isSafe(): Boolean {
+            val decreases = levels.indices.all {
+                if (it < levels.size - 1) {
+                    levels[it] > levels[it + 1]
+                } else true
+            }
+            val increases = levels.indices.all {
+                if (it < levels.size - 1) {
+                    levels[it] < levels[it + 1]
+                } else true
+            }
+
+            val gradual = levels.indices.all {
+                if (it < levels.size - 1) {
+                    val diff = abs(levels[it] - levels[it+1])
+                    diff in 1..3
+                } else true
+            }
+
+            val ret = (decreases || increases) && gradual
+
+            return ret
+        }
+    }
+
     fun part1(input: List<String>): Int {
-        return -1
+        return input.count {
+            val report = Report(it.split(" ").map { it.toInt() })
+            report.isSafe()
+        }
     }
 
     fun part2(input: List<String>): Int {
@@ -12,7 +44,7 @@ fun main() {
 
     // Or read a large test input from the `src/Day01_test.txt` file:
     val testInput = readInput("inputs/Day02_test")
-    val expectedOutput = 11
+    val expectedOutput = 2
     val actualOutput = part1(testInput)
     check(actualOutput == expectedOutput) { "Expected $expectedOutput but received $actualOutput" }
 
