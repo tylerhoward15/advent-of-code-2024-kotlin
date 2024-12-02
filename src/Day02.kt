@@ -17,7 +17,7 @@ fun main() {
                 if (curr > next) increases = false
                 if (abs(curr - next) !in 1..3) gradual = false
 
-                if (!((decreases || increases) && gradual)) return false
+                if ((!decreases && !increases) || !gradual) return false
 
                 i++
             }
