@@ -28,14 +28,11 @@ fun main() {
         fun isSafeExceptOne(): Boolean {
             if (isSafe()) return true
 
-            var i = 0
-            while (i < levels.size) {
-                val rep = Report(levels.filterIndexed { index, _ -> i != index })
-                if (rep.isSafe()) return true
-
-                i++
+            return levels.indices.any {
+                val reportWithoutOne = Report(levels.filterIndexed { index, _ -> it != index })
+                reportWithoutOne.isSafe()
             }
-            return false
+
         }
     }
 
