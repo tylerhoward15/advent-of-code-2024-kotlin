@@ -24,7 +24,21 @@ fun main() {
 
             return true
         }
+
+        fun isSafeExceptOne(): Boolean {
+            if (isSafe()) return true
+
+            var i = 0
+            while (i < levels.size) {
+                val rep = Report(levels.filterIndexed { index, _ -> i != index })
+                if (rep.isSafe()) return true
+
+                i++
+            }
+            return false
+        }
     }
+
 
     fun stringToLevels(string: String): List<Int> {
         return string.split(" ").map { it.toInt() }
@@ -38,8 +52,10 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-
-        return -1
+        return input.count {
+            val report = Report(stringToLevels(it))
+            report.isSafeExceptOne()
+        }
     }
 
     // Test if implementation meets criteria from the description, like:
