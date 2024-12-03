@@ -24,9 +24,22 @@ fun main() {
 
     fun part2(input: List<String>): Int {
         val tokens = getMatchesWithDos(input)
-        tokens.forEach { println(it) }
+        val products = mutableListOf<Int>()
+        var mulEnabled = true
 
-        return -1
+        tokens.forEach {
+            if (mulEnabled && it.startsWith("mul")) {
+                val numsRegex = "(\\d+),(\\d+)".toRegex()
+                val numsMatch = numsRegex.find(it) ?: throw Exception("Couldn't match $it with regex $numsRegex")
+                products.add(numsMatch.groupValues[1].toInt() * numsMatch.groupValues[2].toInt())
+            } else if (it == "don't()") {
+                mulEnabled = false
+            } else if (it == "do()") {
+                mulEnabled = true
+            }
+        }
+
+        return products.sum()
     }
 
     // Test if implementation meets criteria from the description, like:
