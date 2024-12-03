@@ -8,7 +8,8 @@ fun main() {
 
         input.forEach {
             val pairRegex = "(\\d+)\\s+(\\d+)".toRegex()
-            val matches = pairRegex.find(it) ?: throw Exception("Invalid input")
+            val matches =
+                pairRegex.find(it) ?: throw Exception("Couldn't match the pattern $pairRegex for the input: $it")
             left.add(matches.groupValues[1].toInt())
             right.add(matches.groupValues[2].toInt())
         }
