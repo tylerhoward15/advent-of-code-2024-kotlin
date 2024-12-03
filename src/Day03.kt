@@ -1,8 +1,14 @@
 fun main() {
 
-
     fun part1(input: List<String>): Int {
-        return -1
+        val reg = "mul\\((\\d+),(\\d+)\\)".toRegex()
+        val products = mutableListOf<Int>()
+        input.forEach {
+            val matches = reg.findAll(it)
+            matches.forEach { products.add(it.groupValues[1].toInt() * it.groupValues[2].toInt()) }
+        }
+
+        return products.sum()
     }
 
     fun part2(input: List<String>): Int {
