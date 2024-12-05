@@ -13,3 +13,8 @@ tasks {
         gradleVersion = "8.11.1"
     }
 }
+
+dependencies {
+    // https://mvnrepository.com/artifact/com.google.ortools/ortools-java
+    implementation("com.google.ortools:ortools-java:9.11.4210")
+}
