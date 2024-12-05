@@ -1,3 +1,7 @@
+import com.google.ortools.sat.CpModel
+import com.google.ortools.sat.CpSolver
+import com.google.ortools.sat.IntVar
+
 fun main() {
 
     fun splitInput(input: List<String>): Pair<List<String>, List<String>> {
@@ -21,6 +25,30 @@ fun main() {
 
     fun part1(input: List<String>): Int {
         val (rules, pages) = splitInput(input)
+        val sampleInput = pages[0].trim().split(",")
+
+
+        val model = CpModel()
+        val stringPositions = mutableMapOf<String, IntVar>()
+        sampleInput.forEach {
+            stringPositions[it] = model.newIntVar(
+                0,
+                 (sampleInput.size - 1).toLong(),
+                "index = $it and char = $it"
+            )
+        }
+        model.addAllDifferent(stringPositions.values)
+
+        rules.forEach {
+            val (first, second) = it.split("|")
+            model.addLessThan(stringPositions[first], stringPositions[second])
+        }
+
+        val solver = CpSolver()
+        val status = solver.solve(model)
+
+        status.println()
+
 
         return -1
     }
