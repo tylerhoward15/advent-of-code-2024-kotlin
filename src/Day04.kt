@@ -61,6 +61,58 @@ fun main() {
 
     }
 
+    class Puzzle2(val puzzleGrid: List<String>) {
+        val directions = listOf(
+            // row above
+            -1 to -1,
+            -1 to 1,
+
+            // row below
+            1 to -1,
+            1 to 1,
+        )
+
+
+        fun isValidWord(rowStart: Int, columnStart: Int): Boolean {
+            val validDiagonals = directions.all {
+                val nextRow = rowStart + it.first
+                val nextColumn = columnStart + it.second
+
+                nextRow in puzzleGrid.indices && nextColumn in puzzleGrid[nextRow].indices
+            }
+
+            if (!validDiagonals) return false
+            val topLeft = puzzleGrid[rowStart - 1][columnStart - 1]
+            val topRight = puzzleGrid[rowStart - 1][columnStart + 1]
+            val bottomLeft = puzzleGrid[rowStart + 1][columnStart - 1]
+            val bottomRight = puzzleGrid[rowStart + 1][columnStart + 1]
+
+            val diag1 = "$topLeft$bottomRight"
+            val diag2 = "$topRight$bottomLeft"
+
+            val targets = setOf("MS", "SM")
+
+            return diag1 in targets && diag2 in targets
+        }
+
+        fun getWordCountForPosition(rowStart: Int, columnStart: Int): Int {
+            return if (isValidWord(rowStart, columnStart)) 1 else 0
+        }
+
+        fun getWordCount(): Int {
+            var wordCount = 0
+
+            puzzleGrid.indices.forEach { r ->
+                puzzleGrid[r].indices.forEach { c ->
+                    val firstLetter = puzzleGrid[r][c]
+                    if (firstLetter.uppercaseChar() == 'A') wordCount += getWordCountForPosition(r, c)
+                }
+            }
+
+            return wordCount
+        }
+
+    }
 
     fun part1(input: List<String>): Int {
         val puzzle = Puzzle(input)
@@ -68,7 +120,8 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        return -1
+        val puzzle2 = Puzzle2(input)
+        return puzzle2.getWordCount()
     }
 
     // Test if implementation meets criteria from the description, like:
@@ -84,8 +137,8 @@ fun main() {
     check(actualOutputPart1 == expectedOutputPart1) { "Expected $expectedOutputPart1 but received $actualOutputPart1" }
     part1(input).println()
 
-//    val expectedOutputPart2 = 4
-//    val actualOutputPart2 = part2(testInput)
-//    check(actualOutputPart2 == expectedOutputPart2) { "Expected $expectedOutputPart2 but received $actualOutputPart2" }
-//    part2(input).println()
+    val expectedOutputPart2 = 9
+    val actualOutputPart2 = part2(testInput)
+    check(actualOutputPart2 == expectedOutputPart2) { "Expected $expectedOutputPart2 but received $actualOutputPart2" }
+    part2(input).println()
 }
